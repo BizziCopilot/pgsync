@@ -185,7 +185,6 @@ def compiled_query(
         )
     )
     query = sqlparse.format(query, reindent=True, keyword_case="upper")
-    print("query", query)
     if label:
         logger.debug(f"\033[4m{label}:\033[0m\n{query}")
         sys.stdout.write(f"\033[4m{label}:\033[0m\n{query}\n")

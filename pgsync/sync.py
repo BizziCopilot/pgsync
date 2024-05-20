@@ -612,7 +612,6 @@ class Sync(Base, metaclass=Singleton):
         filters: dict,
         payloads: t.List[dict],
     ) -> dict:
-        print("enter _update_op")
         if node.is_root:
             # Here, we are performing two operations:
             # 1) Build a filter to sync the updated record(s)
@@ -662,7 +661,6 @@ class Sync(Base, metaclass=Singleton):
                         doc["_type"] = "_doc"
                     docs.append(doc)
 
-            print("docs", docs)
             if docs:
                 self.search_client.bulk(self.index, docs)
 
@@ -813,7 +811,6 @@ class Sync(Base, metaclass=Singleton):
 
         """
         payload: Payload = payloads[0]
-        print("payload", payload)
         if payload.tg_op not in TG_OP:
             logger.exception(f"Unknown tg_op {payload.tg_op}")
             raise InvalidTGOPError(f"Unknown tg_op {payload.tg_op}")
@@ -842,7 +839,6 @@ class Sync(Base, metaclass=Singleton):
                     raise
 
         logger.debug(f"tg_op: {payload.tg_op} table: {node.name}")
-        print(f"tg_op: {payload.tg_op} table: {node.name}")
 
         filters: dict = {
             node.table: [],
