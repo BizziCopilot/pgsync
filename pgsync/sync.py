@@ -662,6 +662,7 @@ class Sync(Base, metaclass=Singleton):
                     docs.append(doc)
 
             if docs:
+                print("docs", docs)
                 self.search_client.bulk(self.index, docs)
 
         else:
