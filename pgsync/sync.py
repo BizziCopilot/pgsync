@@ -980,7 +980,6 @@ class Sync(Base, metaclass=Singleton):
             ):
                 bar.update(1)
 
-                print("sync row", row)
                 row: dict = Transform.transform(row, self.nodes)
 
                 row[META] = Transform.get_primary_keys(keys)
@@ -1048,6 +1047,7 @@ class Sync(Base, metaclass=Singleton):
         payloads: list = self.redis.pop()
         if payloads:
             logger.debug(f"_poll_redis: {payloads}")
+            print(f"_poll_redis: {payloads}")
             self.count["redis"] += len(payloads)
             self.refresh_views()
             self.on_publish(
