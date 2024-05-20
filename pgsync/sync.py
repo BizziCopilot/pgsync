@@ -917,6 +917,7 @@ class Sync(Base, metaclass=Singleton):
                                         node.table: l2,
                                         node.parent.table: l3,
                                     },
+                                    tg_op=payload.tg_op,
                                 )
                         else:
                             yield from self.sync(
@@ -924,10 +925,12 @@ class Sync(Base, metaclass=Singleton):
                                     self.tree.root.table: l1,
                                     node.table: l2,
                                 },
+                                tg_op=payload.tg_op,
                             )
                 else:
                     yield from self.sync(
                         filters={self.tree.root.table: l1},
+                        tg_op=payload.tg_op,
                     )
 
     def sync(
@@ -936,6 +939,7 @@ class Sync(Base, metaclass=Singleton):
         txmin: t.Optional[int] = None,
         txmax: t.Optional[int] = None,
         ctid: t.Optional[dict] = None,
+        tg_op = None
     ) -> t.Generator:
         """
         Synchronizes data from PostgreSQL to Elasticsearch.
@@ -998,6 +1002,7 @@ class Sync(Base, metaclass=Singleton):
                     "_id": self.get_doc_id(primary_keys, node.table),
                     "_index": self.index,
                     "_source": row,
+                    "tg_op": tg_op,
                 }
 
                 if self.routing:
