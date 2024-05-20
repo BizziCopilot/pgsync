@@ -85,6 +85,7 @@ class Plugins(object):
     def transform(self, docs: list) -> t.Generator:
         """Applies all plugins to each doc."""
         for doc in docs:
+            print("transform doc", doc)
             for plugin in self.plugins:
                 doc["_source"] = plugin.transform(
                     doc["_source"],
