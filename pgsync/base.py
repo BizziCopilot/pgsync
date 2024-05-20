@@ -898,6 +898,7 @@ class Base(object):
                 stream_results=stream_results
             ).execute(statement.select())
             for partition in result.partitions(chunk_size):
+                print("partition", partition)
                 for keys, row, *primary_keys in partition:
                     yield keys, row, primary_keys
             result.close()
