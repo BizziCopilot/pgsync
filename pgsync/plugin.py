@@ -91,6 +91,7 @@ class Plugins(object):
                     doc["_source"],
                     _id=doc["_id"],
                     _index=doc["_index"],
+                    tg_op=doc["tg_op"]
                 )
                 if not doc["_source"]:
                     yield
