@@ -621,6 +621,7 @@ class Sync(Base, metaclass=Singleton):
             #        doc in Elasticsearch/OpenSearch at the same time
             docs: list = []
             for payload in payloads:
+                print("payload", payload)
                 primary_values: list = [
                     payload.data[key] for key in node.model.primary_keys
                 ]
@@ -662,7 +663,6 @@ class Sync(Base, metaclass=Singleton):
                     docs.append(doc)
 
             if docs:
-                print("docs", docs)
                 self.search_client.bulk(self.index, docs)
 
         else:
