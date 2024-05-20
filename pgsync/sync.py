@@ -980,6 +980,7 @@ class Sync(Base, metaclass=Singleton):
             ):
                 bar.update(1)
 
+                print("sync row", row)
                 row: dict = Transform.transform(row, self.nodes)
 
                 row[META] = Transform.get_primary_keys(keys)
